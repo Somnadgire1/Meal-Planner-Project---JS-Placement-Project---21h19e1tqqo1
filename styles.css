@@ -1,1 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: url("https://images.designtrends.com/wp-content/uploads/2016/03/29115235/Abstract-Plain-White-Wallpaper-.jpg");
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.wrapper {
+  background-color: rgb(252, 47, 235);
+  height: 6rem;
+}
+.logo img {
+  height: 6rem;
+  width: 18rem;
+}
+.col-md-4 input {
+    border-radius: 20px;
+}
+.col-md-4 select{
+    border-radius: 20px;
+}
+.title-meal {
+  display: flex;
+  justify-content: space-around;
+  color: rgb(75, 12, 51);
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+/* Recipe numbering */
+ul li {
+  margin: 15px;
+}
+ol li {
+  margin: 10px;
+}
+ul li::before {
+  content: "";
+  color: gray;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1.3em;
+}
+ul li:hover {
+  background-color: powderblue;
+  transition: background-color .3s;
+}
+
+#submitBtn {
+  background-color: orangered;
+  border: 1px solid green;
+  border-radius: 10px;
+  width: 10rem;
+}
+
+#submitBtn:hover {
+  background-color: green;
+  border: 1px solid orangered;
+  transition: 0.3s;
+}
+.btn-recipe {
+  color: white;
+  background-color: rgb(119, 0, 255);
+  border: 1px solid rgb(252, 95, 4);
+  border-radius: 10px;
+  width: 10rem;
+}
+.card {
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 0px 0px 35px 0px;
+  padding: 0 0 15px 0px;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translate(0, -8px);
+  box-shadow: 0 40px 40px rgba(0, 0.3, 0, 0.2);
+}
+
+#loader {
+  left: 50%;
+  top: 50%;
+  padding: 15px;
+  border: 6px solid rgb(121, 88, 88);
+  border-radius: 20px;
+  position: absolute;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 600px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 768px) {
+
+}
