@@ -10,7 +10,7 @@ const ingredientSection = document.getElementById("ingredients");
 const stepsSection = document.getElementById("steps");
 const equipmentSection = document.getElementById("equipment");
 const recipeSection = document.getElementById("recipe-section");
-const API_KEY = "08d3f200ea974b08913e1cbdc042dbf4";
+const API_KEY = "3a147c8ef9854d828c785764252802a0";
 
 // calori calculation
 const getCalorie = () => {
@@ -19,40 +19,41 @@ const getCalorie = () => {
   let av = ageInput.value;
   let gv = genderInput.value;
   let avv = activityInput.value;
-  let bmr;
+  let calori;
 
   if (hv === "" || hv <= 0 || wv === "" || wv <= 0 || av === "" || av <= 0) {
     alert("Input field must Required");
     return;
   }
-
+//else
+//bmr function
   if (gv === "female") {
     //**For women**
-    bmr = 655.1 + 9.563 * wv + 1.85 * hv - 4.676 * av;
+    calori = 655.1 + 9.563 * wv + 1.85 * hv - 4.676 * av;
   } else if (gv === "male") {
     //**For men**
-    bmr = 66.47 + 13.75 * wv + 5.003 * hv - 6.755 * av;
+    calori = 66.47 + 13.75 * wv + 5.003 * hv - 6.755 * av;
   }
-
+//bmr - calori
   // Daily Calorie Requirement
   if (avv === "light") {
     //**Lightly active (exercise 1–3 days/week)**
-    bmr *= 1.375;
+    calori *= 1.375;
   } else if (avv === "moderate") {
     //**Moderately active (exercise 3–5 days/week)**
-    bmr *= 1.55;
+    calori *= 1.55;
   } else if (avv === "active") {
     //**Active (exercise 6–7 days/week)**
-    bmr *= 1.725;
+    calori *= 1.725;
   }
 
-  getMeals(bmr);
+  getMeals(calori);
 };
 
-const getMeals = async (bmr) => {
+const getMeals = async (calori) => {
   document.getElementById("loader").style.display = "block";
-  const url = `https://api.spoonacular.com//mealplanner/generate?timeFrame=day&targetCalories=${bmr}&apiKey=${API_KEY}&includeNutrition=true`;
-
+  const url = `https://api.spoonacular.com//mealplanner/generate?timeFrame=day&targetCalories=${calori}&apiKey=${API_KEY}&includeNutrition=true`;
+// console.log(url)
   let datas;
   await fetch(url)
     .then((res) => {
@@ -76,6 +77,7 @@ const generateMealsCard = (datas) => {
     `;
   datas.meals.map(async (data) => {
     const url = `https://api.spoonacular.com/recipes/${data.id}/information?apiKey=${API_KEY}&includeNutrition=false`;
+    // console.log(url)
     let imgURL;
     await fetch(url)
       .then((res) => {
@@ -92,7 +94,7 @@ const generateMealsCard = (datas) => {
                 <div class="card-body">
                     <h5 class="card-title">${data.title}</h5>
                     <p class="px-2">Calories : ${datas?.nutrients?.calories}</p>
-                    <button class="btn-recipe" onClick="btnRecipe(${data.id})" >Get Recipe</button>
+                    <button class="btn-recipe" onClick="btnRecipe(${data.id})">Get Recipe</button>
                 </div>
             </div>
         </div>
@@ -108,7 +110,7 @@ const btnRecipe = async (data) => {
   equipmentSection.innerHTML = "";
   const url = `https://api.spoonacular.com/recipes/${data}/information?apiKey=${API_KEY}&includeNutrition=false`;
   let information;
-
+// console.log(url)
   await fetch(url)
     .then((res) => {
       return res.json();
@@ -122,14 +124,14 @@ const btnRecipe = async (data) => {
   //   Ingridents
   let htmlData = ``;
   let inCardDiv = document.createElement("div");
-  inCardDiv.classList.add("carddesign", "card", "h-100");
+  inCardDiv.classList.add("card", "h-100"); //h-100=div's height
   let inCardBody = document.createElement("div");
   inCardBody.classList.add("card-body");
   let inOverlay = document.createElement("div");
-  inOverlay.classList.add("overlay");
+  inOverlay.classList.add("overlay"); //.overlay class applies a default background-color: #000; with opacity: 0.5.
   let ol = document.createElement("ol");
   information.extendedIngredients.map((ingre) => {
-    htmlData += `<li>${ingre.original}</li>`;
+    htmlData += `<li>${ingre.original}</li>`; // original=> ingredient data
   });
   ol.innerHTML = htmlData;
   let ingreH1 = document.createElement("h3");
@@ -143,14 +145,14 @@ const btnRecipe = async (data) => {
   //   Steps
   let stepsHtml = ``;
   let stCardDiv = document.createElement("div");
-  stCardDiv.classList.add("carddesign", "card", "h-100");
+  stCardDiv.classList.add("card", "h-100");
   let stCardBody = document.createElement("div");
   stCardBody.classList.add("card-body");
   let stOverlay = document.createElement("div");
   stOverlay.classList.add("overlay");
   let stepsOl = document.createElement("ol");
   information.analyzedInstructions[0].steps.map((step) => {
-    stepsHtml += `<li>${step.step}</li>`;
+    stepsHtml += `<li>${step.step}</li>`;  //step=>step's data
   });
   stepsOl.innerHTML = stepsHtml;
   let stepsH1 = document.createElement("h3");
@@ -164,7 +166,7 @@ const btnRecipe = async (data) => {
   // fetch equipments
   const urlEquip = `https://api.spoonacular.com/recipes/${data}/equipmentWidget.json?apiKey=${API_KEY}&includeNutrition=false`;
   let equip;
-
+// console.log(urlEquip)
   await fetch(urlEquip)
     .then((res) => {
       return res.json();
@@ -175,14 +177,14 @@ const btnRecipe = async (data) => {
 
   let equipData = ``;
   let eqCardDiv = document.createElement("div");
-  eqCardDiv.classList.add("carddesign", "card", "h-100");
+  eqCardDiv.classList.add("card", "h-100");
   let eqCardBody = document.createElement("div");
   eqCardBody.classList.add("card-body");
   let eqOverlay = document.createElement("div");
   eqOverlay.classList.add("overlay");
   let equipUl = document.createElement("ol");
   equip.equipment.map((equip) => {
-    equipData += `<li>${equip.name}</li>`;
+    equipData += `<li>${equip.name}</li>`; //name=>equipment data
   });
   equipUl.innerHTML = equipData;
   let equipH1 = document.createElement("h3");
