@@ -2,7 +2,7 @@
 *Meal Planner Project*
 #API_KEY 1- 08d3f200ea974b08913e1cbdc042dbf4
 #API_KEY 2- 3a147c8ef9854d828c785764252802a0
-## Project o**bjective**
+**Project o**bjective**
 
 - You will be building an meal planner application using html, css and javascript
 - In the end, we’ll have a web application which takes user data and generates meal plan for them along with their recipes.
